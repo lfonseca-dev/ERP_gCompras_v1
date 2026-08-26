@@ -22,6 +22,11 @@ const EmpresaRepository = {
         return rows[0];
     },
 
+    async getByCNPJ(cnpj) {
+        const [rows] = await pool.query("SELECT * FROM empresa WHERE cnpj = ? AND deleted_at IS NULL", [cnpj]);
+        return rows[0];
+    },
+
     async update(id, empresa) {
         const [result] = await pool.execute("UPDATE empresa SET codigo = ?, razao_social = ?, cnpj = ?, inscricao_estadual = ?, email = ?, telefone = ?, endereco = ?, updated_at = NOW() WHERE id = ?", 
             [empresa.codigo, empresa.razao_social, empresa.cnpj, empresa.inscricao_estadual, empresa.email, empresa.telefone, empresa.endereco, id]);

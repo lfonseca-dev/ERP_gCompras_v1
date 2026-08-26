@@ -23,7 +23,12 @@ const FornecedorRepository = {
     },
 
     async getByRazaoSocial(razao_social) {
-        const [rows] = await pool.query("SELECT * FROM fornecedor WHERE razao_social = ? AND deleted_at IS NULL", [razao_social]);
+        const [rows] = await pool.query("SELECT * FROM fornecedor WHERE razao_social LIKE ? AND deleted_at IS NULL", [`%${razao_social}%`]);
+        return rows[0];
+    },
+
+    async getByCNPJ(cnpj) {
+        const [rows] = await pool.query("SELECT * FROM fornecedor WHERE cnpj = ? AND deleted_at IS NULL", [cnpj]);
         return rows[0];
     },
 

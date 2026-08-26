@@ -29,8 +29,8 @@ const ComprasRepository = {
     },
 
     async update(id, compra) {
-        const [result] = await pool.execute("UPDATE compra SET numero = ?, descricao = ?, data = ?, valor = ?, observacao = ?, fornecedor_id = ?, usuario_id = ?, empresa_id = ?, updated_at = NOW() WHERE id = ?",
-            [compra.numero, compra.descricao, compra.data, compra.valor, compra.observacao, compra.fornecedor_id, compra.usuario_id, compra.empresa_id, id]);
+        const [result] = await pool.execute("UPDATE compra SET numero = ?, descricao = ?, data = ?, valor = ?, observacao = ?, fornecedor_id = ?, updated_at = NOW() WHERE id = ?",
+            [compra.numero, compra.descricao, compra.data, compra.valor, compra.observacao, compra.fornecedor_id, id]);
         return result;
     },
 

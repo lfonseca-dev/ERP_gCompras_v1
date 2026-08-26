@@ -24,9 +24,9 @@ router.get("/:id",
     ComprasController.getById
 );
 
-router.patch("/:id/status",
+router.patch("/status/:id",
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1,2),
     validate(getCompraDTO, "params"),
     validate(updateStatusCompraDTO),
     ComprasController.updateStatus
@@ -41,6 +41,7 @@ router.put("/:id",
 
 router.delete("/:id",
     auth,
+    authorize(1,2),
     validate(getCompraDTO, "params"),
     ComprasController.delete
 );

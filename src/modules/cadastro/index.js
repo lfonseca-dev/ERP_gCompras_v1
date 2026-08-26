@@ -1,6 +1,5 @@
 import EmpresaRouter from "./empresa/empresa.routes.js";
 import FornecedorRouter from "./fornecedor/fornecedor.routes.js";
-import EmpresaFornecedorRouter from "./empresaFornecedor/empresaFornecedor.routes.js";
 import RegimeTRouter from "./regimeTributario/regimeT.routes.js";
 
 const CadastroRoutes = [
@@ -13,11 +12,6 @@ const CadastroRoutes = [
         module: "cadastro",
         path: "/fornecedor",
         router: FornecedorRouter
-    },
-    {
-        module: "cadastro",
-        path: "/empresaFornecedor",
-        router: EmpresaFornecedorRouter
     },
     {
         module: "cadastro",

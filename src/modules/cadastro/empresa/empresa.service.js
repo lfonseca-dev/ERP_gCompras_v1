@@ -13,6 +13,16 @@ const EmpresaService = {
             });
         }
 
+        const existingEmpresaCNPJ = await EmpresaRepository.getByCNPJ(empresa.cnpj);
+
+        if (existingEmpresaCNPJ) {
+            throw new AppError({
+                message: "Empresa já cadastrada com este CNPJ",
+                reason: "EMPRESA_CNPJ_ALREADY_EXISTS",
+                statusCode: 409,
+            });
+        }
+
         return await EmpresaRepository.create(empresa);
     },
 

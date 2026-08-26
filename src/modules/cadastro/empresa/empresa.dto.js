@@ -12,8 +12,8 @@ export const createEmpresaDTO = z.object({
 
     cnpj: z
         .string({required_error: "CNPJ é obrigatório"})
-        .min(14, "CNPJ deve ter no mínimo 14 caracteres")
-        .max(18, "CNPJ deve ter no máximo 18 caracteres"),
+        .min(13, "CNPJ deve ter no mínimo 13 caracteres")
+        .max(14, "CNPJ deve ter no máximo 14 caracteres"),
 
     inscricao_estadual: z
         .string({required_error: "Inscrição Estadual é obrigatória"})
@@ -21,27 +21,19 @@ export const createEmpresaDTO = z.object({
         .max(20, "Inscrição Estadual deve ter no máximo 20 caracteres"),
 
     email: z
-        .string({required_error: "Email é obrigatório"})
-        .email("Email inválido")
+        .string()
         .max(100, "Email deve ter no máximo 100 caracteres"),
 
     telefone: z
-        .string({required_error: "Telefone é obrigatório"})
-        .min(10, "Telefone deve ter no mínimo 10 caracteres")
+        .string()
         .max(15, "Telefone deve ter no máximo 15 caracteres"),
 
     endereco: z
-        .string({required_error: "Endereço é obrigatório"})
-        .min(1, "Endereço não pode ser vazio")
+        .string()
         .max(200, "Endereço deve ter no máximo 200 caracteres")
 });
 
 export const updateEmpresaDTO = createEmpresaDTO.partial();
-
-export const getRazaoSocialEmpresaDTO = z.object({
-    razao_social: z
-        .string({required_error: "Razão Social é obrigatória"})
-});
 
 export const getEmpresaDTO = z.object({
     id: z.coerce

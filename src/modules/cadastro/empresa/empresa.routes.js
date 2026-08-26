@@ -9,7 +9,7 @@ const router = Router();
 
 router.post("/",
     auth, 
-    authorize("ADMIN", "GERENTE"),
+    authorize(1,2),
     validate(createEmpresaDTO), 
     EmpresaController.create
 );
@@ -27,7 +27,7 @@ router.get("/:id",
 
 router.put("/:id", 
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1,2),
     validate(getEmpresaDTO, "params"),
     validate(updateEmpresaDTO), 
     EmpresaController.update
@@ -35,7 +35,7 @@ router.put("/:id",
 
 router.delete("/:id", 
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1,2),
     validate(getEmpresaDTO, "params"), 
     EmpresaController.delete
 );

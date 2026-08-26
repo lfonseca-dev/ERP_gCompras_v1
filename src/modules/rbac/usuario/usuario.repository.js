@@ -2,15 +2,13 @@ import pool from "../../../core/database/data.js"
 
 const UsuarioRepository = {
     async create(usuario) {
-        const [result] = await pool.execute(
-            "INSERT INTO usuario (nome, email, senha, nivel_acesso_id, empresa_id) VALUES (?, ?, ?, ?, ?)", 
+        const [result] = await pool.execute("INSERT INTO usuario (nome, email, senha, nivel_acesso_id, empresa_id) VALUES (?, ?, ?, ?, ?)", 
             [usuario.nome, usuario.email, usuario.senha, usuario.nivel_acesso_id, usuario.empresa_id]);
         return result;
     },
     
     async getAll() {
-        const [rows] = await pool.query(
-            "SELECT * FROM usuario WHERE deleted_at IS NULL");
+        const [rows] = await pool.query("SELECT * FROM usuario WHERE deleted_at IS NULL");
         return rows;
     },
 
@@ -25,8 +23,7 @@ const UsuarioRepository = {
     },
 
     async update(id, usuario) {
-        const [result] = await pool.execute(
-            "UPDATE usuario SET nome = ?, email = ?, senha = ?, nivel_acesso_id = ?, empresa_id = ?, updated_at = NOW() WHERE id = ?", 
+        const [result] = await pool.execute("UPDATE usuario SET nome = ?, email = ?, senha = ?, nivel_acesso_id = ?, empresa_id = ?, updated_at = NOW() WHERE id = ?", 
             [usuario.nome, usuario.email, usuario.senha, usuario.nivel_acesso_id, usuario.empresa_id, id]);
         return result;
     },

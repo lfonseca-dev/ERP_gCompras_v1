@@ -1,5 +1,4 @@
 import FornecedorRepository from "./fornecedor.repository.js";
-import EmpresaFornecedorService from "../empresaFornecedor/empresaFornecedor.service.js";
 import { AppError } from "../../../core/utils/AppError.js";
 
 const FornecedorService = {
@@ -13,6 +12,17 @@ const FornecedorService = {
                 statusCode: 409,
             });
         }
+
+        const existingFornecedorCNPJ = await FornecedorRepository.getByCNPJ(fornecedor.cnpj);
+
+        if (existingFornecedorCNPJ) {
+            throw new AppError({
+                message: "Fornecedor já cadastrado com este CNPJ",
+                reason: "FORNECEDOR_CNPJ_ALREADY_EXISTS",
+                statusCode: 409,
+            });
+        }
+
         return await FornecedorRepository.create(fornecedor);
     },
 
@@ -20,8 +30,8 @@ const FornecedorService = {
         return await FornecedorRepository.getAll();
     },
 
-    async getById(id, usuario) {
-        const fornecedor = await FornecedorRepository.getById(id, usuario.empresa_id);
+    async getById(id) {
+        const fornecedor = await FornecedorRepository.getById(id);
 
         if (!fornecedor) {
             throw new AppError({

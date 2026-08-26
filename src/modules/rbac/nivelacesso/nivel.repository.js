@@ -7,17 +7,17 @@ const NivelRepository = {
     },
 
     async getAll() {
-        const [rows] = await pool.query("SELECT * FROM nivel_acesso");
+        const [rows] = await pool.query("SELECT * FROM nivel_acesso WHERE deleted_at IS NULL");
         return rows;
     },
 
     async getById(id) {
-        const [rows] = await pool.execute("SELECT * FROM nivel_acesso WHERE id = ?", [id]);
+        const [rows] = await pool.execute("SELECT * FROM nivel_acesso WHERE id = ? AND deleted_at IS NULL", [id]);
         return rows[0];
     },
 
     async getByCodigo(codigo) {
-        const [rows] = await pool.execute("SELECT * FROM nivel_acesso WHERE codigo = ?", [codigo]);
+        const [rows] = await pool.execute("SELECT * FROM nivel_acesso WHERE codigo = ? AND deleted_at IS NULL", [codigo]);
         return rows[0];
     },
 

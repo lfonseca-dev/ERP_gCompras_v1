@@ -12,14 +12,12 @@ const RegimeTRepository = {
     },
 
     async getById(id) {
-        const [rows] = await pool.query(
-            "SELECT * FROM regime_tributario WHERE id = ? AND deleted_at IS NULL", [id]);
+        const [rows] = await pool.query("SELECT * FROM regime_tributario WHERE id = ? AND deleted_at IS NULL", [id]);
         return rows[0];
     },
 
     async getByCodigo(codigo) {
-        const [rows] = await pool.query(
-            "SELECT * FROM regime_tributario WHERE codigo = ? AND deleted_at IS NULL", [codigo]);
+        const [rows] = await pool.query("SELECT * FROM regime_tributario WHERE codigo = ? AND deleted_at IS NULL", [codigo]);
         return rows[0];
     },
 

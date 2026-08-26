@@ -9,7 +9,7 @@ const router = Router();
 
 router.post("/", 
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1,2),
     validate(createFornecedorDTO), 
     FornecedorController.create
 );
@@ -33,7 +33,7 @@ router.get("/razaoSocial/:razao_social",
 
 router.put("/:id", 
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1,2),
     validate(getFornecedorDTO, "params"),
     validate(updateFornecedorDTO), 
     FornecedorController.update
@@ -41,7 +41,7 @@ router.put("/:id",
 
 router.delete("/:id", 
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1,2),
     validate(getFornecedorDTO, "params"), 
     FornecedorController.delete
 );

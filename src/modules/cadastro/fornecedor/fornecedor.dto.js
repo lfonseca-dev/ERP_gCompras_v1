@@ -22,17 +22,14 @@ export const createFornecedorDTO = z.object({
 
     email: z
         .string({required_error: "Email é obrigatório"})
-        .email("Email inválido")
         .max(100, "Email deve ter no máximo 100 caracteres"),
 
     telefone: z
-        .string({required_error: "Telefone é obrigatório"})
-        .min(10, "Telefone deve ter no mínimo 10 caracteres")
+        .string()
         .max(15, "Telefone deve ter no máximo 15 caracteres"),
 
     endereco: z
-        .string({required_error: "Endereço é obrigatório"})
-        .min(1, "Endereço não pode ser vazio")
+        .string()
         .max(200, "Endereço deve ter no máximo 200 caracteres"),
 
     regimeT_id: z

@@ -9,13 +9,14 @@ const router = Router();
 
 router.post("/", 
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1),
     validate(createUsuarioDTO), 
     UsuarioController.create
 );
 
 router.get("/",
     auth,
+    authorize(1),
     UsuarioController.getAll
 );
 
@@ -27,7 +28,7 @@ router.get("/:id",
 
 router.put("/:id",
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1),
     validate(getUsuarioDTO, "params"),
     validate(updateUsuarioDTO), 
     UsuarioController.update
@@ -35,7 +36,7 @@ router.put("/:id",
 
 router.delete("/:id",
     auth,
-    authorize("ADMIN", "GERENTE"),
+    authorize(1),
     validate(getUsuarioDTO, "params"), 
     UsuarioController.delete
 );

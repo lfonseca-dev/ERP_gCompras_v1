@@ -1,6 +1,6 @@
 import ComprasRepository from "./compras.repository.js";
-import EmpresaFornecedorService from "../../cadastro/empresaFornecedor/empresaFornecedor.service.js";
 import HistoricoRepository from "../historico/historico.repository.js";
+import FornecedorService from "../../cadastro/fornecedor/fornecedor.service.js";
 import statusService from "../status/status.service.js";
 import { AppError } from "../../../core/utils/AppError.js";
 
@@ -17,12 +17,12 @@ const ComprasService = {
         }
 
         await statusService.getById(compra.status_compra_id);
-        await EmpresaFornecedorService.validateVinculo(usuario.empresa_id, compra.fornecedor_id);
+        await FornecedorService.getById(compra.fornecedor_id);
 
         const result = await ComprasRepository.create({
             ...compra, 
             usuario_id: usuario.sub, 
-            empresa_id: usuario.empresa_id
+            empresa_id: usuario.empresa
         });
 
         await HistoricoRepository.create({
@@ -36,7 +36,7 @@ const ComprasService = {
     },
 
     async getAllByEmpresa(usuario) {
-        return await ComprasRepository.getAllByEmpresa(usuario.empresa_id);
+        return await ComprasRepository.getAllByEmpresa(usuario.empresa);
     },
 
     async getById(id, usuario) {
@@ -50,7 +50,7 @@ const ComprasService = {
             });
         }
 
-        if (existingCompra.empresa_id !== usuario.empresa_id) {
+        if (existingCompra.empresa_id !== usuario.empresa) {
             throw new AppError({ 
                 message: "A compra não pertence à empresa do usuário",
                 reason: "COMPRA_NOT_BELONG_TO_USER_COMPANY",
@@ -61,7 +61,7 @@ const ComprasService = {
     },
 
     async updateStatus(id, status_compra_id, usuario) {
-        const existingCompra = await ComprasRepository.getById(id, usuario.empresa_id);
+        const existingCompra = await ComprasRepository.getById(id, usuario.empresa);
 
         if (!existingCompra) {
             throw new AppError({
@@ -71,7 +71,7 @@ const ComprasService = {
             });
         }
 
-        if (existingCompra.empresa_id !== usuario.empresa_id) {
+        if (existingCompra.empresa_id !== usuario.empresa) {
             throw new AppError({
                 message: "A compra não pertence à empresa do usuário",
                 reason: "COMPRA_NOT_BELONG_TO_USER_COMPANY",
@@ -102,7 +102,7 @@ const ComprasService = {
             });
         }
 
-        if (existingCompra.empresa_id !== usuario.empresa_id) {
+        if (existingCompra.empresa_id !== usuario.empresa) {
             throw new AppError({
                 message: "A compra não pertence à empresa do usuário",
                 reason: "COMPRA_NOT_BELONG_TO_USER_COMPANY",
@@ -113,7 +113,7 @@ const ComprasService = {
         const result = await ComprasRepository.update(id, {
             ...compra, 
             usuario_id: usuario.sub, 
-            empresa_id: usuario.empresa_id 
+            empresa_id: usuario.empresa
         });
 
         await HistoricoRepository.create({
@@ -137,7 +137,7 @@ const ComprasService = {
             });
         }
 
-        if (existingCompra.empresa_id !== usuario.empresa_id) {
+        if (existingCompra.empresa_id !== usuario.empresa) {
             throw new AppError({
                 message: "A compra não pertence à empresa do usuário",
                 reason: "COMPRA_NOT_BELONG_TO_USER_COMPANY",
