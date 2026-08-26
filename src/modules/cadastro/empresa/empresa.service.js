@@ -17,16 +17,7 @@ const EmpresaService = {
     },
 
     async getAll() {
-        const empresas = await EmpresaRepository.getAll();
-
-        if (!empresas || empresas.length === 0) {
-            throw new AppError({
-                message: "Nenhuma empresa encontrada",
-                reason: "EMPRESAS_NOT_FOUND",
-                statusCode: 404,
-            });
-        }
-        return empresas;
+        return await EmpresaRepository.getAll();
     },
 
     async getById(id) {

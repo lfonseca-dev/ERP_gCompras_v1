@@ -11,7 +11,7 @@ const AuthService = {
             throw new AppError({
                 message: "Usuário não encontrado",
                 reason: "USER_NOT_FOUND",
-                statusCode: 404,
+                statusCode: 401,
             });
         }
 
@@ -29,8 +29,8 @@ const AuthService = {
             sub: usuario.id,
             email: usuario.email,
             nome: usuario.nome,
-            empresa_id: usuario.empresa_id,
-            nivel_acesso_id: usuario.nivel_acesso_id,
+            empresa: usuario.empresa_id,
+            nivel_acesso: usuario.nivel_acesso_id,
         };
 
             return JWT.generateAccessToken(payload);

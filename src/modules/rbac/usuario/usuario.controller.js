@@ -1,6 +1,6 @@
 import UsuarioService from "./usuario.service.js";
 import * as response from "../../../core/utils/response.js";
-import { asyncHandler } from "../../../core/utils/AsyncHandler.js";
+import { asyncHandler } from "../../../core/utils/asyncHandler.js";
 
 const UsuarioController = {
     create: asyncHandler(async (req, res) => {

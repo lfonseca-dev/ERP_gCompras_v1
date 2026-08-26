@@ -21,16 +21,7 @@ const HistoricoService = {
     },
 
     async getAll() {
-        const historicos = await HistoricoRepository.getAll();
-
-        if (!historicos || historicos.length === 0) {
-            throw new AppError({
-                message: "Nenhum histórico encontrado",
-                reason: "HISTORICO_NOT_FOUND",
-                statusCode: 404,
-            });
-        }   
-        return historicos;
+        return await HistoricoRepository.getAll();
     }
 };
 

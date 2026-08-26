@@ -6,15 +6,7 @@ import { getHistoricoDTO } from "./historico.dto.js";
 
 const routes = Router();
 
-routes.get(
-    "/:id/historico", 
-    auth,
-    validate(getHistoricoDTO, "params"),
-    HistoricoController.getHistoricoById
-);
-
-routes.get(
-    "/", 
+routes.get("/", 
     auth,
     HistoricoController.getAll
 );

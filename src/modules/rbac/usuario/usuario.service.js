@@ -1,6 +1,6 @@
 import UsuarioRepository from "./usuario.repository.js";
 import { hashPass } from "../../../core/security/hash.js";
-import { AppError } from "../../../core/utils/appError.js";
+import { AppError } from "../../../core/utils/AppError.js";
 
 import NivelService from "../nivelacesso/nivel.service.js";
 import EmpresaService from "../../cadastro/empresa/empresa.service.js";
@@ -27,16 +27,7 @@ const UsuarioService = {
     },
 
     async getAll() {
-        const usuarios = await UsuarioRepository.getAll();
-
-        if (!usuarios || usuarios.length === 0) {
-            throw new AppError({
-                message: "Nenhum usuário encontrado",
-                reason: "USUARIOS_NOT_FOUND",
-                statusCode: 404
-            });
-        }
-        return usuarios;
+        return await UsuarioRepository.getAll();
     },
 
     async getById(id) {

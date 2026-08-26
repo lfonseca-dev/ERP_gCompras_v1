@@ -1,5 +1,5 @@
 import StatusRepository from "./status.repository.js";
-import { AppError } from "../../../core/utils/appError.js";
+import { AppError } from "../../../core/utils/AppError.js";
 
 const StatusService = {
     async create(status) {
@@ -16,16 +16,7 @@ const StatusService = {
     },
 
     async getAll() {
-        const status = await StatusRepository.getAll();
-
-        if (!status || status.length === 0) {
-            throw new AppError({
-                message: "Nenhum status encontrado",
-                reason: "STATUS_NOT_FOUND",
-                statusCode: 404
-            });
-        }
-        return status;
+        return await StatusRepository.getAll();
     },
 
     async getById(id) {

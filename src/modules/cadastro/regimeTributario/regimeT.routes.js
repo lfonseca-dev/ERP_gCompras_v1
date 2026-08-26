@@ -3,11 +3,13 @@ import RegimeTController from "./regimeT.controller.js";
 import { validate } from "../../../core/middlewares/validate.js";
 import { createRegimeTDTO, updateRegimeTDTO, getRegimeTDTO } from "./regimeT.dto.js";
 import { auth } from "../../../core/middlewares/auth.middleware.js";
+import { authorize } from "../../../core/middlewares/authorize.js";
 
 const router = Router();
 
 router.post("/",
     auth,
+    authorize("ADMIN", "GERENTE"),
     validate(createRegimeTDTO),
     RegimeTController.create
 );
@@ -25,6 +27,7 @@ router.get("/:id",
 
 router.put("/:id",
     auth,
+    authorize("ADMIN", "GERENTE"),
     validate(getRegimeTDTO, "params"),
     validate(updateRegimeTDTO),
     RegimeTController.update
@@ -32,6 +35,7 @@ router.put("/:id",
 
 router.delete("/:id",
     auth,
+    authorize("ADMIN", "GERENTE"),
     validate(getRegimeTDTO, "params"),
     RegimeTController.delete
 );

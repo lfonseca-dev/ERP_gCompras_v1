@@ -12,7 +12,8 @@ export const createCompraDTO = z.object({
 
     data: z
         .string({required_error: "Data é obrigatória"})
-        .min(1, "Data não pode ser vazia"),
+        .min(1, "Data não pode ser vazia")
+        .regex(/^\d{4}-\d{2}-\d{2}$/, "Data inválida"),
 
     valor: z
         .number({required_error: "Valor é obrigatório"})

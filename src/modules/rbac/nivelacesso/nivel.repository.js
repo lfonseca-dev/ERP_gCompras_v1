@@ -28,7 +28,7 @@ const NivelRepository = {
     },
 
     async delete(id) {
-        const [result] = await pool.execute("UPDATE nivel_acesso SET ativo = FALSE, deleted_at = NOW() WHERE id = ?", [id]);
+        const [result] = await pool.execute("UPDATE nivel_acesso SET deleted_at = NOW() WHERE id = ?", [id]);
         return result;
     }
 };

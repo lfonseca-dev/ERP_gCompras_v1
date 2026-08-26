@@ -16,16 +16,7 @@ const RegimeTService = {
     },
 
     async getAll() {
-        const regimes = await RegimeTRepository.getAll();
-
-        if (!regimes || regimes.length === 0) {
-            throw new AppError({
-                message: "Nenhum regime tributário encontrado",
-                reason: "REGIMES_TRIBUTARIOS_NOT_FOUND",
-                statusCode: 404,
-            });
-        }
-        return regimes;
+        return await RegimeTRepository.getAll();
     },
 
     async getById(id) {

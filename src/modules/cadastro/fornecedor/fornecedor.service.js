@@ -1,4 +1,5 @@
 import FornecedorRepository from "./fornecedor.repository.js";
+import EmpresaFornecedorService from "../empresaFornecedor/empresaFornecedor.service.js";
 import { AppError } from "../../../core/utils/AppError.js";
 
 const FornecedorService = {
@@ -16,20 +17,11 @@ const FornecedorService = {
     },
 
     async getAll() {
-        const fornecedores = await FornecedorRepository.getAll();
-
-        if (!fornecedores || fornecedores.length === 0) {
-            throw new AppError({
-                message: "Nenhum fornecedor encontrado",
-                reason: "FORNECEDORES_NOT_FOUND",
-                statusCode: 404,
-            });
-        }
-        return fornecedores;
+        return await FornecedorRepository.getAll();
     },
 
-    async getById(id) {
-        const fornecedor = await FornecedorRepository.getById(id);
+    async getById(id, usuario) {
+        const fornecedor = await FornecedorRepository.getById(id, usuario.empresa_id);
 
         if (!fornecedor) {
             throw new AppError({

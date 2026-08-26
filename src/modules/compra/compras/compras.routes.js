@@ -3,6 +3,7 @@ import ComprasController from "./compras.controller.js";
 import { validate } from "../../../core/middlewares/validate.js";
 import { createCompraDTO, updateCompraDTO, getCompraDTO, updateStatusCompraDTO } from "./compras.dto.js";
 import { auth } from "../../../core/middlewares/auth.middleware.js";
+import { authorize } from "../../../core/middlewares/authorize.js";
 
 const router = Router();
 
@@ -25,6 +26,7 @@ router.get("/:id",
 
 router.patch("/:id/status",
     auth,
+    authorize("ADMIN", "GERENTE"),
     validate(getCompraDTO, "params"),
     validate(updateStatusCompraDTO),
     ComprasController.updateStatus

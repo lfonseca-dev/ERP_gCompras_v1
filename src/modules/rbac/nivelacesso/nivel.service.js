@@ -1,5 +1,5 @@
 import NivelRepository from "./nivel.repository.js";
-import { AppError } from "../../../core/utils/appError.js";
+import { AppError } from "../../../core/utils/AppError.js";
 
 const NivelService = {
     async create(nivelAcesso) {
@@ -16,16 +16,7 @@ const NivelService = {
     },
 
     async getAll() {
-        const niveisAcesso = await NivelRepository.getAll();
-
-        if (!niveisAcesso || niveisAcesso.length === 0) {
-            throw new AppError({
-                message: "Nenhum nível de acesso encontrado",
-                reason: "NIVEIS_NOT_FOUND",
-                statusCode: 404
-            });
-        }
-        return niveisAcesso;
+        return await NivelRepository.getAll();
     },
 
     async getById(id) {

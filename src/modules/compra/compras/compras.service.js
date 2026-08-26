@@ -1,6 +1,7 @@
 import ComprasRepository from "./compras.repository.js";
 import EmpresaFornecedorService from "../../cadastro/empresaFornecedor/empresaFornecedor.service.js";
 import HistoricoRepository from "../historico/historico.repository.js";
+import statusService from "../status/status.service.js";
 import { AppError } from "../../../core/utils/AppError.js";
 
 const ComprasService = {
@@ -15,6 +16,7 @@ const ComprasService = {
             });
         }
 
+        await statusService.getById(compra.status_compra_id);
         await EmpresaFornecedorService.validateVinculo(usuario.empresa_id, compra.fornecedor_id);
 
         const result = await ComprasRepository.create({
@@ -34,34 +36,32 @@ const ComprasService = {
     },
 
     async getAllByEmpresa(usuario) {
-        const compras = await ComprasRepository.getAllByEmpresa(usuario.empresa_id);
-
-        if (!compras || compras.length === 0) {
-            throw new AppError({
-                message: "Nenhuma compra encontrada",
-                reason: "COMPRAS_NOT_FOUND",
-                statusCode: 404,
-            });
-        }
-
-        return compras;
+        return await ComprasRepository.getAllByEmpresa(usuario.empresa_id);
     },
 
-    async getById(id) {
-        const compra = await ComprasRepository.getById(id);
+    async getById(id, usuario) {
+        const existingCompra = await ComprasRepository.getById(id);
 
-        if (!compra) {
+        if (!existingCompra) {
             throw new AppError({
                 message: "Compra não encontrada",
                 reason: "COMPRA_NOT_FOUND",
                 statusCode: 404,
             });
         }
-        return compra;
+
+        if (existingCompra.empresa_id !== usuario.empresa_id) {
+            throw new AppError({ 
+                message: "A compra não pertence à empresa do usuário",
+                reason: "COMPRA_NOT_BELONG_TO_USER_COMPANY",
+                statusCode: 403,
+            });
+        }
+        return existingCompra;
     },
 
     async updateStatus(id, status_compra_id, usuario) {
-        const existingCompra = await ComprasRepository.getById(id);
+        const existingCompra = await ComprasRepository.getById(id, usuario.empresa_id);
 
         if (!existingCompra) {
             throw new AppError({

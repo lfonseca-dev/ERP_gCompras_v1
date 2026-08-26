@@ -27,6 +27,8 @@ const EmpresaFornecedorService = {
                 statusCode: 404,
             });
         }
+
+        await EmpresaFornecedorService.validateVinculo(vinculo.empresa_id, vinculo.fornecedor_id);
         return vinculo;
     },
 
@@ -44,16 +46,7 @@ const EmpresaFornecedorService = {
     },
 
     async getAllByEmpresa(empresa_id) {
-        const vinculos = await EmpresaFornecedorRepository.getAllByEmpresa(empresa_id);
-
-        if (!vinculos || vinculos.length === 0) {
-            throw new AppError({
-                message: "Nenhum vínculo encontrado",
-                reason: "VINCULOS_NOT_FOUND",
-                statusCode: 404,
-            });
-        }
-        return vinculos;
+        return await EmpresaFornecedorRepository.getAllByEmpresa(empresa_id);
     },
 
     async validateVinculo(empresa_id, fornecedor_id) {

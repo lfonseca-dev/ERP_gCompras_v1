@@ -28,7 +28,7 @@ const StatusRepository = {
     },
 
     async delete(id) {
-        const [result] = await pool.execute("UPDATE status_compra SET ativo = FALSE, deleted_at = NOW() WHERE id = ?", [id]);
+        const [result] = await pool.execute("UPDATE status_compra SET deleted_at = NOW() WHERE id = ?", [id]);
         return result;
     }
 };

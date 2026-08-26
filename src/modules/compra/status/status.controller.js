@@ -1,6 +1,6 @@
 import StatusService from "./status.service.js";
 import * as response from "../../../core/utils/response.js";
-import { asyncHandler } from "../../../core/utils/AsyncHandler.js";
+import { asyncHandler } from "../../../core/utils/asyncHandler.js";
 
 const StatusController = {
     create: asyncHandler(async (req, res) => {

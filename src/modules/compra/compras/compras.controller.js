@@ -20,7 +20,7 @@ const ComprasController = {
     }),
 
     getById: asyncHandler(async (req, res) => {
-        const data = await ComprasService.getById(req.params.id);
+        const data = await ComprasService.getById(req.params.id, req.user);
         return response.success(res, {
             message: "Compra encontrada com sucesso",
             data,
